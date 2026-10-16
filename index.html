@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="theme-color" content="#f8fafc">
+    <title>History - Indus Valley Civilization (Lecture 2)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        :root {
+            --bg-main: #f8fafc; --bg-card: #ffffff; --primary: #2563eb; --primary-hover: #1d4ed8;
+            --primary-light: #eff6ff; --text-dark: #0f172a; --text-muted: #64748b; --border-color: #e2e8f0;
+            --green: #10b981; --green-light: #ecfdf5; --red: #ef4444; --red-light: #fef2f2;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06); --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08);
+        }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg-main); color: var(--text-dark); min-height: 100dvh; font-size: 15px; line-height: 1.5; overflow-x: hidden; }
+        button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+        .hidden { display: none !important; }
+        .start-screen { position: fixed; inset: 0; background: var(--bg-main); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; overflow-y: auto; }
+        .start-card { width: 100%; max-width: 440px; background: var(--bg-card); border-radius: 24px; padding: 36px 28px; box-shadow: var(--shadow-lg); text-align: center; border: 1px solid var(--border-color); }
+        .brand-icon { width: 60px; height: 60px; background: var(--primary-light); color: var(--primary); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 26px; margin: 0 auto 16px; }
+        .start-title { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+        .start-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; }
+        .mode-btn { display: flex; align-items: center; gap: 16px; width: 100%; padding: 16px; background: #fff; border: 1.5px solid var(--border-color); border-radius: 16px; text-align: left; margin-bottom: 12px; transition: all 0.2s ease; }
+        .mode-btn:hover { border-color: var(--primary); background: var(--primary-light); transform: translateY(-2px); }
+        .mode-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+        .mode-icon.quiz { background: #dbeafe; color: #2563eb; }
+        .mode-icon.test { background: #d1fae5; color: #059669; }
+        .mode-name { font-size: 15px; font-weight: 700; margin-bottom: 2px; }
+        .mode-info-txt { font-size: 12px; color: var(--text-muted); }
+        .quiz-app { height: 100dvh; display: flex; flex-direction: column; overflow: hidden; }
+        .quiz-header { flex-shrink: 0; background: #fff; border-bottom: 1px solid var(--border-color); padding: 12px 18px; }
+        .quiz-header-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        .hdr-brand { font-weight: 700; font-size: 15px; }
+        .hdr-timer { padding: 6px 14px; background: #f8fafc; border: 1px solid var(--border-color); border-radius: 20px; font-family: monospace; font-weight: 700; color: var(--primary); }
+        .hdr-btn { width: 38px; height: 38px; border-radius: 10px; background: #fff; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; }
+        .quiz-main { flex: 1; overflow-y: auto; max-width: 900px; width: 100%; margin: 0 auto; padding: 24px 16px; }
+        .q-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 20px; padding: 24px; box-shadow: var(--shadow-sm); }
+        .q-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+        .q-num-badge { padding: 5px 12px; background: var(--primary-light); color: var(--primary); border-radius: 20px; font-size: 12px; font-weight: 700; }
+        .lang-btn { padding: 5px 12px; border-radius: 20px; border: 1px solid var(--border-color); font-size: 12px; font-weight: 600; background: #fff; display: inline-flex; align-items: center; gap: 6px; }
+        .q-text { font-size: 16px; font-weight: 600; line-height: 1.6; margin-bottom: 22px; white-space: pre-line; }
+        .q-text table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+        .q-text th, .q-text td { border: 1px solid var(--border-color); padding: 8px 12px; text-align: left; }
+        .opts { display: flex; flex-direction: column; gap: 11px; }
+        .opt { display: flex; align-items: center; gap: 14px; padding: 14px 18px; background: #fff; border: 1.5px solid var(--border-color); border-radius: 14px; cursor: pointer; transition: all 0.15s ease; }
+        .opt:hover:not(.locked) { border-color: var(--primary); background: #f8fafc; }
+        .opt.selected { border-color: var(--primary); background: var(--primary-light); }
+        .opt.correct { border-color: var(--green); background: var(--green-light); }
+        .opt.wrong { border-color: var(--red); background: var(--red-light); }
+        .opt.locked { cursor: default; }
+        .opt-letter { width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--border-color); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; color: var(--text-muted); flex-shrink: 0; }
+        .opt.selected .opt-letter { background: var(--primary); color: #fff; border-color: var(--primary); }
+        .opt.correct .opt-letter { background: var(--green); color: #fff; border-color: var(--green); }
+        .opt.wrong .opt-letter { background: var(--red); color: #fff; border-color: var(--red); }
+        .opt-text { flex: 1; font-weight: 600; }
+        .opt-tag { font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; }
+        .opt.correct .opt-tag { background: var(--green); color: #fff; }
+        .opt.wrong .opt-tag { background: var(--red); color: #fff; }
+        .sol-box { margin-top: 20px; padding: 16px; background: #f8fafc; border-left: 4px solid var(--primary); border-radius: 12px; }
+        .sol-head { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--primary); margin-bottom: 8px; }
+        .quiz-nav { flex-shrink: 0; background: #fff; border-top: 1px solid var(--border-color); padding: 12px 18px; }
+        .quiz-nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+        .nav-btn { display: flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 12px; font-size: 14px; font-weight: 600; }
+        .nav-btn.prev { background: #fff; border: 1px solid var(--border-color); }
+        .nav-btn.prev:disabled { opacity: 0.4; cursor: not-allowed; }
+        .nav-btn.submit { background: var(--green-light); color: #065f46; border: 1px solid #a7f3d0; }
+        .nav-btn.next { background: var(--primary); color: #fff; }
+        .palette-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 150; display: none; }
+        .palette-overlay.open { display: block; }
+        .palette-drawer { position: fixed; top: 0; left: 0; bottom: 0; width: min(340px, 85vw); background: #fff; z-index: 160; display: flex; flex-direction: column; transform: translateX(-100%); transition: transform 0.25s; }
+        .palette-drawer.open { transform: translateX(0); }
+        .pal-head { padding: 18px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; font-weight: 700; }
+        .pal-grid { flex: 1; overflow-y: auto; padding: 16px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; align-content: start; }
+        .pal-btn { aspect-ratio: 1; border-radius: 10px; border: 1px solid var(--border-color); background: #f8fafc; font-size: 13px; font-weight: 600; display: flex; align-items: center; justify-content: center; }
+        .pal-btn.answered { background: var(--green); color: #fff; border-color: var(--green); }
+        .pal-btn.current { outline: 2px solid var(--primary); outline-offset: 2px; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 170; display: none; align-items: center; justify-content: center; padding: 20px; }
+        .modal-overlay.open { display: flex; }
+        .modal-box { width: 100%; max-width: 420px; background: #fff; border-radius: 20px; padding: 28px; text-align: center; }
+        .modal-stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0 22px; }
+        .modal-stat { background: #f8fafc; border-radius: 12px; padding: 14px; border: 1px solid var(--border-color); }
+        .modal-stat-num { font-size: 24px; font-weight: 800; }
+        .modal-btn { width: 100%; padding: 14px; border-radius: 12px; font-size: 14px; font-weight: 600; margin-bottom: 8px; }
+        .modal-btn.confirm { background: var(--primary); color: #fff; }
+        .modal-btn.cancel { background: #f1f5f9; }
+        .results-screen { position: fixed; inset: 0; background: var(--bg-main); z-index: 180; display: none; overflow-y: auto; padding: 30px 16px 60px; }
+        .results-screen.open { display: block; }
+        .results-box { max-width: 600px; margin: 0 auto; text-align: center; }
+        .res-score-card { background: #0f172a; color: #fff; border-radius: 20px; padding: 28px; margin: 20px 0; }
+        .res-score-val { font-size: 54px; font-weight: 800; }
+        .res-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+        .res-item { background: #fff; border-radius: 14px; padding: 16px; border: 1px solid var(--border-color); }
+        .res-item-val { font-size: 22px; font-weight: 700; }
+        .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-80px); background: #0f172a; color: #fff; padding: 10px 20px; border-radius: 30px; font-size: 13px; font-weight: 600; z-index: 300; opacity: 0; transition: all 0.25s; }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+    </style>
+</head>
+<body>
+    <div class="start-screen" id="startScreen">
+        <div class="start-card">
+            <div class="brand-icon"><i class="fas fa-landmark"></i></div>
+            <h1 class="start-title">Indus Valley Civilization</h1>
+            <p class="start-desc">History — Lecture 2 (Harappan Architecture, Sites & Culture)</p>
+            <button class="mode-btn" onclick="startApp('quiz')">
+                <div class="mode-icon quiz"><i class="fas fa-bolt"></i></div>
+                <div><div class="mode-name">Practice Mode</div><div class="mode-info-txt">Har question ke sath instant solution aur explanation dekhein.</div></div>
+            </button>
+            <button class="mode-btn" onclick="startApp('test')">
+                <div class="mode-icon test"><i class="fas fa-clock"></i></div>
+                <div><div class="mode-name">Exam Mode</div><div class="mode-info-txt">Timer ke sath test attempt karein aur scorecard payein.</div></div>
+            </button>
+        </div>
+    </div>
+
+    <div class="quiz-app hidden" id="quizApp">
+        <header class="quiz-header">
+            <div class="quiz-header-inner">
+                <button class="hdr-btn" onclick="openPalette()"><i class="fas fa-th-large"></i></button>
+                <div class="hdr-brand">IVC - Lecture 2</div>
+                <div class="hdr-timer"><i class="fas fa-stopwatch"></i> <span id="timerText">00:00</span></div>
+            </div>
+        </header>
+
+        <main class="quiz-main" id="quizMain"></main>
+
+        <nav class="quiz-nav" id="quizNav">
+            <div class="quiz-nav-inner">
+                <button class="nav-btn prev" id="prevBtn" onclick="prevQuestion()"><i class="fas fa-arrow-left"></i> Previous</button>
+                <button class="nav-btn submit" onclick="openSubmitModal()"><i class="fas fa-paper-plane"></i> Submit</button>
+                <button class="nav-btn next" id="nextBtn" onclick="nextQuestion()"><span id="nextLabel">Next</span> <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </nav>
+    </div>
+
+    <div class="palette-overlay" id="paletteOverlay" onclick="closePalette()"></div>
+    <aside class="palette-drawer" id="paletteDrawer">
+        <div class="pal-head"><span>Questions</span><button onclick="closePalette()"><i class="fas fa-times"></i></button></div>
+        <div class="pal-grid" id="paletteGrid"></div>
+    </aside>
+
+    <div class="modal-overlay" id="submitModal">
+        <div class="modal-box">
+            <h3>Submit Test?</h3>
+            <div class="modal-stats-grid">
+                <div class="modal-stat"><div class="modal-stat-num" id="modalAttempted" style="color:var(--green)">0</div><div>Attempted</div></div>
+                <div class="modal-stat"><div class="modal-stat-num" id="modalUnattempted" style="color:var(--text-muted)">0</div><div>Unattempted</div></div>
+            </div>
+            <button class="modal-btn confirm" onclick="confirmSubmit()">Yes, Finish</button>
+            <button class="modal-btn cancel" onclick="closeSubmitModal()">Resume</button>
+        </div>
+    </div>
+
+    <div class="results-screen" id="resultsScreen"><div class="results-box" id="resultsInner"></div></div>
+    <div class="toast" id="toast"><span id="toastText"></span></div>
+
+    <script>
+        const QUESTIONS = [
+            {
+                e: "In Harappan Civilization, at Dholavira, ________ was/were used to build massive fortifications.",
+                h: "हड़प्पा सभ्यता में, धोलावीरा में, ________ का उपयोग विशाल किलेबंदी के निर्माण के लिए किया जाता था।",
+                oEn: ["Wood", "Granite", "Stone", "Bricks"],
+                oHi: ["काष्ठ", "ग्रेनाइट", "पत्थर", "ईंट"],
+                a: 2,
+                sE: "Unlike most other Harappan cities where baked bricks were predominantly used, Dholavira is renowned for its extensive use of dressed stone for masonry and massive fortifications.",
+                sH: "अधिकांश हड़प्पा स्थलों में पकी ईंटों का प्रयोग हुआ था, परंतु धोलावीरा की विशाल किलेबंदी और निर्माण में तराशे हुए पत्थरों (Stone) का बड़े पैमाने पर उपयोग किया गया था।"
+            },
+            {
+                e: "Which of the following was a characteristic feature of Harappan street planning?",
+                h: "निम्नलिखित में से कौन-सी विशेषता हड़प्पाकालीन सड़क नियोजन की एक विशिष्ट विशेषता थी?",
+                oEn: [
+                    "Narrow zig-zag streets designed to control traffic flow",
+                    "Broad circular roads radiating out from a central square",
+                    "Streets intersecting at right angles forming a criss-cross pattern",
+                    "Elevated stone causeways replacing ordinary streets"
+                ],
+                oHi: [
+                    "यातायात प्रवाह को नियंत्रित करने के लिए डिज़ाइन की गई संकरी, टेढ़ी-मेढ़ी सड़कें",
+                    "एक केंद्रीय चौक से बाहर की ओर फैली चौड़ी गोलाकार सड़कें",
+                    "सड़कें समकोण पर एक दूसरे को काटती हैं जिससे एक आड़ी-तिरछी आकृति बनती है (Grid pattern)",
+                    "साधारण सड़कों की जगह ऊंचे पत्थर के पुल बनाए जा रहे हैं"
+                ],
+                a: 2,
+                sE: "Harappan town planning was based on a grid pattern (or chessboard system) where straight streets intersected at right angles.",
+                sH: "हड़प्पा नगर नियोजन की प्रमुख विशेषता ग्रिड प्रणाली (जाल पद्धति) थी, जहाँ मुख्य सड़कें एक-दूसरे को समकोण (Right Angles) पर काटती थीं।"
+            },
+            {
+                e: "The Harappan Civilization flourished mainly during which of the following archaeological eras?",
+                h: "निम्नलिखित में से किस पुरातात्विक युग के दौरान हड़प्पा सभ्यता मुख्य रूप से विकसित हुई?",
+                oEn: ["Neolithic Age", "Bronze Age", "Iron Age", "Chalcolithic Age"],
+                oHi: ["नवपाषाण युग", "कांस्य युग", "लौह युग", "ताम्रपाषाण युग"],
+                a: 1,
+                sE: "The Harappan (Indus Valley) Civilization is classified as an urban Bronze Age civilization (circa 2600–1900 BCE for its mature phase).",
+                sH: "हड़प्पा सभ्यता एक नगरीय कांस्य युगीन (Bronze Age) सभ्यता थी, जहाँ तांबे और टिन को मिलाकर कांस्य तकनीक का व्यापक विकास हुआ था।"
+            },
+            {
+                e: "Which archaeological site revealed the earliest known public water tank of the ancient world, famously referred to as the Great Bath?",
+                h: "किस पुरातात्विक स्थल से प्राचीन विश्व के सबसे पुराने ज्ञात सार्वजनिक जल टैंक का पता चला है, जिसे प्रसिद्ध रूप से 'विशाल स्नानागार (Great Bath)' कहा जाता है?",
+                oEn: ["Dholavira", "Mohenjo-daro", "Lothal", "Surkotada"],
+                oHi: ["धोलावीरा", "मोहनजोदड़ो", "लोथल", "सुरकोटदा"],
+                a: 1,
+                sE: "The Great Bath, made watertight with gypsum plaster and natural bitumen, was discovered in the citadel of Mohenjo-daro.",
+                sH: "विशाल स्नानागार (Great Bath) मोहनजोदड़ो के दुर्ग (Citadel) क्षेत्र में खोजा गया एक प्रसिद्ध आयताकार जलाशय है।"
+            },
+            {
+                e: "Which unique architectural feature distinguishes the Harappan site of Dholavira?",
+                h: "धोलावीरा के हड़प्पा स्थल की कौन-सी अद्वितीय वास्तुपरक विशेषता इसे विशिष्ट बनाती है?",
+                oEn: [
+                    "Complex drainage systems",
+                    "Pictorial murals on walls",
+                    "Large fortifications",
+                    "Step-wells for water conservation"
+                ],
+                oHi: [
+                    "जटिल जल निकासी निकाय",
+                    "दीवारों पर चित्रमय भित्ति चित्र",
+                    "व्यापक किलेबंदी",
+                    "जल संरक्षण के लिए बावड़ी / विशाल जलाशय"
+                ],
+                a: 3,
+                sE: "Dholavira is distinguished by its sophisticated water management system, consisting of rock-cut water reservoirs, dams, and interconnected stone step-wells.",
+                sH: "धोलावीरा अपने उन्नत जल संरक्षण और प्रबंधन प्रणाली (विशाल पत्थरों से कटे जलाशय एवं बावड़ी) के लिए विश्व प्रसिद्ध है।"
+            },
+            {
+                e: "Name the popular technique used by the Harappans for casting bronze.",
+                h: "हड़प्पावासियों द्वारा कांस्य ढलाई के लिए प्रयुक्त लोकप्रिय तकनीक का नाम बताइए।",
+                oEn: ["Sand Casting Technique", "Die Casting Technique", "Lost-Wax Technique", "Open Mould Casting Technique"],
+                oHi: ["सैंड कास्टिंग तकनीक", "डाई कास्टिंग तकनीक", "लॉस्ट-वैक्स (लुप्त-मोम) तकनीक", "ओपन मोल्ड कास्टिंग तकनीक"],
+                a: 2,
+                sE: "The Harappans used the cire-perdue or 'lost-wax technique' to cast intricate bronze sculptures like the famous Dancing Girl of Mohenjo-daro.",
+                sH: "हड़प्पावासी कांस्य मूर्तियां ढालने के लिए 'लॉस्ट-वैक्स तकनीक' (Cire Perdue / मधुच्छिष्ट विधान) का प्रयोग करते थे।"
+            },
+            {
+                e: "Which of the following features at Lothal provides the most convincing evidence of its role as a maritime trading centre in the Harappan Civilization?",
+                h: "लोथल की निम्नलिखित विशेषताओं में से कौन-सी विशेषता हड़प्पा सभ्यता में समुद्री व्यापार केंद्र के रूप में इसकी भूमिका का सबसे पुख्ता प्रमाण प्रदान करती है?",
+                oEn: [
+                    "A large warehouse located near the dock structure",
+                    "Discovery of seals indicating contacts with distant regions",
+                    "A brick-built basin connected to an ancient river channel",
+                    "Evidence of bead-making workshops within the settlement"
+                ],
+                oHi: [
+                    "गोदी संरचना के निकट स्थित एक विशाल माल गोदाम",
+                    "दूरस्थ क्षेत्रों के साथ संपर्क दर्शाने वाली मुहरों की खोज",
+                    "एक प्राचीन नदी मार्ग से जुड़ा हुआ ईंटों से निर्मित बेसिन (Dockyard)",
+                    "बस्ती के भीतर मनके बनाने की कार्यशालाओं के साक्ष्य"
+                ],
+                a: 2,
+                sE: "The tidal dockyard—a large rectangular burnt-brick basin connected via a sluice channel to the ancient Bhogavo river—proves Lothal was an active seaport.",
+                sH: "भोगवा नदी से जुड़ा हुआ पक्की ईंटों से बना विशाल गोदीवाड़ा (Dockyard) लोथल के प्रमुख समुद्री व्यापारिक पत्तन होने का ठोस प्रमाण है।"
+            },
+            {
+                e: "Which deity was worshipped as the chief female deity in Harappan culture?",
+                h: "हड़प्पा संस्कृति में किस देवी की पूजा कुल देवी (प्रमुख मातृ देवी) के रूप में की जाती थी?",
+                oEn: ["Saraswati", "Lakshmi", "Durga", "Mother Goddess"],
+                oHi: ["सरस्वती", "लक्ष्मी", "दुर्गा", "मातृ देवी (Mother Goddess)"],
+                a: 3,
+                sE: "Terracotta figurines representing a heavily ornamented female, identified by archaeologists as the Mother Goddess, were widely worshipped for fertility.",
+                sH: "हड़प्पा सभ्यता में उर्वरता और सृजन के प्रतीक के रूप में 'मातृ देवी' (Mother Goddess) की प्रमुखता से पूजा की जाती थी।"
+            },
+            {
+                e: "Which of the following is NOT a true element of Harappan architecture?",
+                h: "निम्नलिखित में से कौन-सा, हड़प्पा वास्तुकला का वास्तविक घटक नहीं है?",
+                oEn: [
+                    "Cities included public buildings and well-planned houses",
+                    "Buildings in Harappan cities were made of standardized baked bricks",
+                    "Architecture focused on functional design rather than decoration",
+                    "Cities had magnificent palaces, monuments and royal tombs"
+                ],
+                oHi: [
+                    "शहरों में सार्वजनिक इमारतें और सुनियोजित घर शामिल थे",
+                    "हड़प्पा शहरों में इमारतें मानकीकृत पकी हुई ईंटों से बनी थीं",
+                    "वास्तुकला, सजावट के बजाय कार्यात्मक डिजाइन पर केंद्रित थी",
+                    "शहरों में भव्य महल, स्मारक और शाही मकबरे थे"
+                ],
+                a: 3,
+                sE: "Harappan cities lacked massive ostentatious monuments, lavish royal tombs, or monumental palaces like those in contemporary Egypt or Mesopotamia; utility and functionality were paramount.",
+                sH: "हड़प्पा सभ्यता में मिस्र या मेसोपोटामिया की तरह कोई भव्य महल, मंदिर या शाही मकबरे नहीं पाए गए हैं। उनकी वास्तुकला उपयोगितावादी थी।"
+            },
+            {
+                e: "Which of the following Harappan sites yielded excellent examples of metal-cast sculptures?",
+                h: "निम्नलिखित में से किस हड़प्पा स्थल से धातु से ढली मूर्तियों के उत्कृष्ट उदाहरण मिले हैं?",
+                oEn: ["Nageshwar", "Kalibangan", "Daimabad", "Rangpur"],
+                oHi: ["नागेश्वर", "कालीबंगा", "दैमाबाद", "रंगपुर"],
+                a: 2,
+                sE: "Daimabad (Maharashtra) yielded a famous hoard of heavy bronze sculptures, including a bronze chariot with driver, a bull, an elephant, and a rhinoceros.",
+                sH: "महाराष्ट्र के दैमाबाद से कांस्य रथ खींचते हुए सारथी, गैंडा, हाथी और भैंसे की अद्वितीय धातु-ढली मूर्तियां प्राप्त हुई हैं।"
+            },
+            {
+                e: "What was the dominant type of economy in the Harappan heartland?",
+                h: "हड़प्पा के मुख्य क्षेत्र में अर्थव्यवस्था का प्रमुख प्रकार क्या था?",
+                oEn: ["Spiritual-centric", "Hunting-gathering", "Trade-based economy", "Agro-pastoral"],
+                oHi: ["अध्यात्म-केंद्रित", "शिकार-संग्रह", "व्यापार-आधारित अर्थव्यवस्था", "कृषि-पशुपालक (Agro-pastoral)"],
+                a: 3,
+                sE: "While external and internal trade was robust, the fundamental backbone supporting the entire urban civilization was an intensive agro-pastoral economy producing agricultural surplus.",
+                sH: "हड़प्पा सभ्यता का आधारभूत आर्थिक ढांचा कृषि और पशुपालन (Agro-pastoral) था, जिसकी अधिशेष उपज पर समृद्ध व्यापार और नगर टिके थे।"
+            },
+            {
+                e: "In which district of Gujarat is the Harappan archaeological site of Dholavira, recognized as a UNESCO World Heritage Site, situated?",
+                h: "गुजरात के किस जिले में धोलावीरा का हड़प्पा पुरातात्विक स्थल स्थित है, जिसे यूनेस्को विश्व धरोहर स्थल के रूप में मान्यता प्राप्त है?",
+                oEn: ["Jamnagar District", "Banaskantha District", "Kutch District", "Patan District"],
+                oHi: ["जामनगर जिला", "बनासकांठा जिला", "कच्छ जिला", "पाटन जिला"],
+                a: 2,
+                sE: "Dholavira is situated on Khadir Bet island in the Great Rann of Kutch, Kutch district, Gujarat.",
+                sH: "धोलावीरा गुजरात के कच्छ जिले के भचाऊ तालुका में खादिर बेट द्वीप पर स्थित है।"
+            },
+            {
+                e: "Who initiated a major archaeological or scientific study related to the Harappan site of Rakhigarhi in 2013?",
+                h: "2013 में राखीगढ़ी के हड़प्पा स्थल से संबंधित एक प्रमुख पुरातात्विक या वैज्ञानिक अध्ययन किसने शुरू किया?",
+                oEn: ["B.B. Lal", "R.S. Bisht", "Vasant Shinde", "Amrendra Nath"],
+                oHi: ["बी.बी. लाल", "आर.एस. बिष्ट", "वसंत शिंदे", "अमरेंद्र नाथ"],
+                a: 2,
+                sE: "Prof. Vasant Shinde of Deccan College, Pune, led the joint archaeological excavations and landmark ancient DNA research at Rakhigarhi beginning in 2013.",
+                sH: "डेक्कन कॉलेज के प्रोफेसर वसंत शिंदे के नेतृत्व में 2013 से राखीगढ़ी में व्यापक उत्खनन और प्राचीन डीएनए अध्ययन का कार्य किया गया।"
+            },
+            {
+                e: "Which Harappan city, around 2500 BCE, is noted for its dockyard, indicating advanced architectural planning for trade?",
+                h: "लगभग 2500 ईसा पूर्व में हड़प्पा सभ्यता का कौन सा शहर अपने गोदीवाड़ा के लिए जाना जाता है, जो व्यापार के लिए उन्नत स्थापत्य योजना का संकेत देता है?",
+                oEn: ["Dholavira", "Mohenjodaro", "Lothal", "Kalibangan"],
+                oHi: ["धौलावीरा", "मोहनजोदड़ो", "लोथल", "कालीबंगन"],
+                a: 2,
+                sE: "Lothal is internationally known for its tidal dockyard basin constructed of kiln-burnt bricks.",
+                sH: "लोथल अपने पकी ईंटों से बने गोदीवाड़ा (Dockyard) के लिए विश्व विख्यात है।"
+            },
+            {
+                e: "Which of the following regions was one of the major sources for copper for the Harappan civilisation?",
+                h: "हड़प्पा सभ्यता के लिए तांबे के प्रमुख स्रोतों में से निम्नलिखित में से कौन सा क्षेत्र एक था?",
+                oEn: ["Rajasthan", "Bihar", "Afghanistan", "Maharashtra"],
+                oHi: ["राजस्थान", "बिहार", "अफगानिस्तान", "महाराष्ट्र"],
+                a: 0,
+                sE: "The Khetri copper mines of Rajasthan (Ganeshwar-Jodhpura culture area) were the primary supplier of copper ore to Harappan cities.",
+                sH: "राजस्थान की खेतड़ी की खानें हड़प्पा सभ्यता के लिए तांबे की आपूर्ति का मुख्य स्रोत थीं।"
+            },
+            {
+                e: "What contributed to the height of the Citadel in the Harappan civilisation?",
+                h: "हड़प्पा सभ्यता में गढ़ (Citadel) की ऊंचाई में किसका योगदान था?",
+                oEn: ["Stone construction", "Mud brick platforms", "Wooden pillars", "Adobe walls"],
+                oHi: ["पत्थर का निर्माण", "मिट्टी की ईंटों के चबूतरे (Mud brick platforms)", "लकड़ी के खंभे", "कच्ची ईंटों की दीवारें"],
+                a: 1,
+                sE: "Citadels in cities like Harappa and Mohenjo-daro were elevated because buildings were constructed on massive artificial platforms made of mud and sun-dried mud bricks.",
+                sH: "हड़प्पा नगरों में पश्चिमी दुर्ग या गढ़ को बाढ़ से बचाने और ऊंचाई प्रदान करने के लिए मिट्टी और कच्ची ईंटों के विशाल चबूतरों (Platforms) पर बनाया गया था।"
+            },
+            {
+                e: "Which of the following is a distinctive feature found in Harappan cities?",
+                h: "निम्नलिखित में से कौन सी हड़प्पा शहरों में पाई जाने वाली एक विशिष्ट विशेषता है?",
+                oEn: ["Religious processions", "Trade routes", "Efficient transportation", "Drainage system"],
+                oHi: ["धार्मिक जुलूस", "व्यापार मार्ग", "कुशल परिवहन", "जल निकासी प्रणाली (Drainage system)"],
+                a: 3,
+                sE: "The covered, brick-lined underground drainage network with inspection traps and soak pits in Harappan cities was unique in the ancient world.",
+                sH: "सड़क के नीचे ढकी हुई नालियों और सोखता गड्ढों वाली सुव्यवस्थित जल निकासी प्रणाली (Drainage system) हड़प्पा सभ्यता की सबसे अद्वितीय विशेषता थी।"
+            },
+            {
+                e: "Which Harappan city, flourishing around 2500 BCE, is especially known for its Great Bath and advanced grid-pattern streets?",
+                h: "लगभग 2500 ईसा पूर्व में विकसित हुआ कौन सा हड़प्पा शहर विशेष रूप से अपने विशाल स्नानागार और उन्नत ग्रिड-पैटर्न वाली सड़कों के लिए जाना जाता है?",
+                oEn: ["Dholavira", "Mohenjodaro", "Kalibangan", "Lothal"],
+                oHi: ["धोलावीरा", "मोहनजोदड़ो", "कालीबंगा", "लोथल"],
+                a: 1,
+                sE: "Mohenjo-daro in Sindh (Pakistan) is most famous for the Great Bath and its impeccably planned grid streets.",
+                sH: "मोहनजोदड़ो (सिंध, पाकिस्तान) विशाल स्नानागार और समकोण पर काटती चौड़ी सड़कों के उत्कृष्ट विन्यास के लिए प्रसिद्ध है।"
+            },
+            {
+                e: "With reference to Harappan architecture, which of the following statements is/are correct?\nI. Streets and roads were straight and cutting each other at right angles.\nII. Street drains were covered by stone slabs.",
+                h: "हड़प्पा वास्तुकला के संदर्भ में, निम्नलिखित में से कौन सा/से कथन सही है/हैं?\nI. सड़कें और गलियां सीधी थीं और एक दूसरे को समकोण पर काटती थीं।\nII. सड़क के नालों को पत्थर की पटियों से ढका गया था।",
+                oEn: ["Only II", "Both I and II", "Neither I nor II", "Only I"],
+                oHi: ["केवल II", "I और II दोनों", "न तो I और न ही II", "केवल I"],
+                a: 1,
+                sE: "Both statements are correct: streets followed a rectilinear grid and the drains along the streets were covered with bricks or stone slabs for sanitation.",
+                sH: "दोनों कथन सत्य हैं: सड़कें समकोण पर काटती थीं और नालियों को साफ-सफाई के लिए ईंटों या पत्थर की पट्टियों से ढका जाता था।"
+            },
+            {
+                e: "Harappa is located on the banks of which river?",
+                h: "हड़प्पा किस नदी के तट पर स्थित है?",
+                oEn: ["Saraswati", "Indus", "Ravi", "Luni"],
+                oHi: ["सरस्वती", "सिंधु", "रावी", "लूनी"],
+                a: 2,
+                sE: "Harappa is situated on the left bank of the Ravi River in Montgomery (now Sahiwal) district of Punjab, Pakistan.",
+                sH: "हड़प्पा स्थल पंजाब (पाकिस्तान) के साहीवाल जिले में रावी नदी के बाएं तट पर स्थित है।"
+            },
+            {
+                e: "Which of the following building material was used by Harappans?",
+                h: "हड़प्पावासियों द्वारा निम्नलिखित में से किस निर्माण सामग्री का उपयोग किया गया था?",
+                oEn: ["Clay", "Red Sandstone", "Baked/Burnt brick", "Sun-dried mud only"],
+                oHi: ["मिट्टी", "लाल बलुआ पत्थर", "पकी हुई ईंट (Baked brick)", "धूप में सुखाई ईंट मात्र"],
+                a: 2,
+                sE: "Standardized kiln-baked bricks (with a precise 1:2:4 ratio in thickness, width, and length) were the hallmark building material of Harappan construction.",
+                sH: "हड़प्पावासियों ने निर्माण कार्यों में बड़े पैमाने पर मानकीकृत पकी हुई ईंटों (Baked bricks) का उपयोग किया था।"
+            },
+            {
+                e: "Which of these periods is associated with the 'Pashupati' seal?",
+                h: "इनमें से कौन सा काल 'पशुपति' मुहर से संबंधित है?",
+                oEn: ["Mauryan", "Gupta", "Vedic period", "Harappan Culture"],
+                oHi: ["मौर्य", "गुप्त", "वैदिक काल", "हड़प्पा संस्कृति"],
+                a: 3,
+                sE: "The famous steatite seal depicting a three-horned yogic figure surrounded by animals (identified by John Marshall as 'Proto-Shiva' or Pashupati) was found at Mohenjo-daro.",
+                sH: "प्रसिद्ध पशुपति महादेव (प्रोटो-शिव) की मुहर मोहनजोदड़ो (हड़प्पा संस्कृति) से प्राप्त हुई थी।"
+            },
+            {
+                e: "Harappa civilization emerged primarily in the basin of which river system?",
+                h: "हड़प्पा सभ्यता किस नदी के तंत्र पर विकसित हुई?",
+                oEn: ["Indus", "Ganga", "Yamuna", "Sutlej"],
+                oHi: ["सिंधु (Indus)", "गंगा", "यमुना", "सतलुज"],
+                a: 0,
+                sE: "The civilization developed primarily in the valleys of the Indus River and its tributaries, hence named the Indus Valley Civilization.",
+                sH: "हड़प्पा सभ्यता का प्रारंभिक फैलाव सिंधु नदी और उसकी सहायक नदियों की उपजाऊ घाटी में हुआ था।"
+            },
+            {
+                e: "Match the Indus Valley Civilisation site with its excavator:\n(A) Harappa — I. S.R. Rao\n(B) Dholavira — II. J.P. Joshi\n(C) Surkotada — III. R.S. Bisht\n(D) Lothal — IV. Daya Ram Sahni",
+                h: "निम्नलिखित का मिलान करें:\n(A) हड़प्पा — I. एस.आर. राव\n(B) धोलावीरा — II. जे.पी. जोशी\n(C) सुरकोटदा — III. आर.एस. बिष्ट\n(D) लोथल — IV. दया राम साहनी",
+                oEn: ["A-III; B-I; C-IV; D-II", "A-II; B-IV; C-III; D-I", "A-IV; B-III; C-II; D-I", "A-I; B-III; C-II; D-IV"],
+                oHi: ["A-III; B-I; C-IV; D-II", "A-II; B-IV; C-III; D-I", "A-IV; B-III; C-II; D-I", "A-I; B-III; C-II; D-IV"],
+                a: 2,
+                sE: "Harappa was excavated by Daya Ram Sahni (1921), Dholavira excavated extensively by R.S. Bisht, Surkotada by J.P. Joshi (1964), and Lothal by S.R. Rao (1954-58). Correct code: A-IV; B-III; C-II; D-I.",
+                sH: "हड़प्पा: दया राम साहनी (IV), धोलावीरा: आर.एस. बिष्ट (III), सुरकोटदा: जे.पी. जोशी (II), और लोथल: एस.आर. राव (I)। सही विकल्प A-IV, B-III, C-II, D-I है।"
+            },
+            {
+                e: "In the Harappan Civilisation, sculptures in _________ are excellent examples of handling three-dimensional volumes.",
+                h: "हड़प्पा सभ्यता में, _________ में मूर्तियां त्रि-आयामी (3D) संस्करणों को संभालने के उत्कृष्ट उदाहरण हैं।",
+                oEn: ["Stone", "Granite", "Wood", "Marble"],
+                oHi: ["पत्थर (Stone)", "ग्रेनाइट", "लकड़ी", "मार्बल"],
+                a: 0,
+                sE: "Stone sculptures (such as the Priest-King and the Male Torso) exhibit masterful execution of three-dimensional anatomical volumes.",
+                sH: "हड़प्पा सभ्यता में पत्थर (Stone) पर गढ़ी गई मूर्तियां मूर्तिकारों की त्रि-आयामी कलात्मक दक्षता का उत्कृष्ट उदाहरण हैं।"
+            },
+            {
+                e: "With which of the following coloured sandstones was the Male Torso found in Harappa crafted?",
+                h: "हड़प्पा में निम्नलिखित में से किस रंग के बलुआ पत्थर से एक पुरुष धड़ मिला था?",
+                oEn: ["Yellow", "Brown", "Red", "Green"],
+                oHi: ["पीला", "भूरा", "लाल (Red)", "हरा"],
+                a: 2,
+                sE: "The remarkable naturalistic Male Torso discovered at Harappa is sculpted out of red sandstone.",
+                sH: "हड़प्पा से प्राप्त प्रसिद्ध मानवाकृतिक पुरुष धड़ लाल बलुआ पत्थर (Red Sandstone) से तराशा गया है।"
+            },
+            {
+                e: "The Harappan Civilisation had trade links with which of the following regions?",
+                h: "हड़प्पा सभ्यता का निम्नलिखित में से किस क्षेत्र के साथ व्यापारिक संबंध था?",
+                oEn: ["Mongolia", "Greece", "Rome", "Mesopotamia"],
+                oHi: ["मंगोलिया", "ग्रीस", "रोम", "मेसोपोटामिया"],
+                a: 3,
+                sE: "Cuneiform inscriptions from Mesopotamia reference regular maritime trade with 'Meluhha' (the Indus region), exchanging carnelian, lapis lazuli, copper, and timber.",
+                sH: "मेसोपोटामियाई अभिलेखों में 'मेलुहा' (हड़प्पा क्षेत्र) के साथ सुव्यवस्थित समुद्री और थल व्यापार का स्पष्ट उल्लेख मिलता है।"
+            },
+            {
+                e: "The Harappa site of the Indus Valley Civilisation was discovered in which year?",
+                h: "सिंधु घाटी सभ्यता की हड़प्पा स्थल की खोज किस वर्ष में हुई थी?",
+                oEn: ["1921", "1967", "1939", "1821"],
+                oHi: ["1921", "1967", "1939", "1821"],
+                a: 0,
+                sE: "Rai Bahadur Daya Ram Sahni discovered and began formal excavations at Harappa in 1921 under the directorship of Sir John Marshall.",
+                sH: "हड़प्पा की औपचारिक खोज 1921 में दया राम साहनी द्वारा की गई थी।"
+            },
+            {
+                e: "Which of the following Indus Valley sites was discovered by Rakhaldas Bannerjee?",
+                h: "निम्नलिखित में से कौन सी सिंधु घाटी सभ्यता की स्थल राखाल दास बनर्जी द्वारा खोजा गया था?",
+                oEn: ["Surkotada", "Kalibangan", "Mohenjo-Daro", "Harappa"],
+                oHi: ["सुरकोटदा", "कालीबंगा", "मोहनजोदड़ो", "हड़प्पा"],
+                a: 2,
+                sE: "Rakhaldas Bannerjee discovered Mohenjo-daro in 1922 in the Larkana district of Sindh.",
+                sH: "राखालदास बनर्जी ने 1922 में पाकिस्तान के सिंध प्रांत के लरकाना जिले में मोहनजोदड़ो की खोज की थी।"
+            },
+            {
+                e: "Which of the following was the unique feature of Dholavira’s city layout during the Indus Valley Civilisation?",
+                h: "सिंधु घाटी सभ्यता के दौरान धोलावीरा के शहर के लेआउट की अनूठी विशेषता क्या थी?",
+                oEn: [
+                    "It was a single unique tomb.",
+                    "It was divided into two distinct parts.",
+                    "It was divided into eight parts.",
+                    "It was divided into three distinct parts."
+                ],
+                oHi: [
+                    "यह एक अद्वितीय कब्र थी।",
+                    "यह दो अलग-अलग भागों में विभाजित था।",
+                    "यह आठ भागों में विभाजित था।",
+                    "यह तीन अलग-अलग भागों ( दुर्ग, मध्यम नगर और निचला नगर ) में विभाजित था।"
+                ],
+                a: 3,
+                sE: "While most Indus cities were bipartite (Citadel and Lower Town), Dholavira was tri-partite: Citadel (Castle & Bailey), Middle Town, and Lower Town, all encircled by massive stone walls.",
+                sH: "अधिकांश हड़प्पा नगर दो भागों में बंटे थे, परंतु धोलावीरा तीन अलग-अलग भागों (किला, मध्यम नगर, और निचला नगर) में विभाजित था।"
+            },
+            {
+                e: "Match the Harappan site with its present state:\nA. Lothal — I. Haryana\nB. Kalibangan — II. Gujarat\nC. Daimabad — III. Rajasthan\nD. Birhana — IV. Maharashtra",
+                h: "हड़प्पा स्थल का वर्तमान राज्य से मिलान कीजिए:\nA. लोथल — I. हरियाणा\nB. कालीबंगा — II. गुजरात\nC. दैमाबाद — III. राजस्थान\nD. भिरराना — IV. महाराष्ट्र",
+                oEn: ["A-III; B-IV; C-II; D-I", "A-II; B-III; C-IV; D-I", "A-I; B-II; C-III; D-IV", "A-IV; B-I; C-III; D-II"],
+                oHi: ["A-III; B-IV; C-II; D-I", "A-II; B-III; C-IV; D-I", "A-I; B-II; C-III; D-IV", "A-IV; B-I; C-III; D-II"],
+                a: 1,
+                sE: "Lothal is in Gujarat (II), Kalibangan in Rajasthan (III), Daimabad in Maharashtra (IV), and Bhirrana in Haryana (I). Correct code: A-II; B-III; C-IV; D-I.",
+                sH: "लोथल गुजरात (II) में, कालीबंगा राजस्थान (III) में, दैमाबाद महाराष्ट्र (IV) में और भिरराना हरियाणा (I) में स्थित है। सही उत्तर: A-II, B-III, C-IV, D-I है।"
+            },
+            {
+                e: "From which site of the Indus Valley Civilisation was a design on a pot which seems to depict the folk story of the 'thirsty crow' found?",
+                h: "सिंधु घाटी सभ्यता के किस स्थल से एक बर्तन पर ऐसा चित्र मिला है जो 'प्यासे कौवे' या 'चतुर लोमड़ी' की लोककथा को दर्शाता है?",
+                oEn: ["Lothal", "Harappa", "Mohenjo-daro", "Rakhigarhi"],
+                oHi: ["लोथल", "हड़प्पा", "मोहनजोदड़ो", "राखीगढ़ी"],
+                a: 0,
+                sE: "A painted earthen jar discovered at Lothal portrays birds perched on trees and a deer, closely resembling the Panchatantra tales of the 'Thirsty Crow' and 'The Cunning Fox'.",
+                sH: "लोथल से प्राप्त एक मृदभांड पर पंचतंत्र की प्रसिद्ध कहानी 'चतुर लोमड़ी और कौवा' से मिलता-जुलता चित्र पाया गया है।"
+            },
+            {
+                e: "Which of the following statements is/are correct in the context of Harappan religious practices?\nI. Harappans worshipped female goddesses associated with fertility.\nII. Harappans also worshipped male gods such as Pashupati.",
+                h: "हड़प्पा की धार्मिक प्रथाओं के संदर्भ में निम्नलिखित में से कौन सा/से कथन सही है/हैं?\nI. हड़प्पावासी प्रजनन से जुड़ी महिला देवी-देवताओं की पूजा करते थे।\nII. हड़प्पावासी पशुपति जैसे पुरुष देवताओं की भी पूजा करते थे।",
+                oEn: ["Neither I nor II", "Only II", "Only I", "Both I and II"],
+                oHi: ["न तो I और न ही II", "केवल II", "केवल I", "I और II दोनों"],
+                a: 3,
+                sE: "Both statements are correct. Numerous terracotta Mother Goddess figurines and the famous Pashupati seal attest to worship of fertility deities and proto-Shiva.",
+                sH: "दोनों कथन सत्य हैं। हड़प्पा सभ्यता में मातृदेवी (उर्वरता की देवी) और पशुपति शिव दोनों की उपासना के प्रमाण मिले हैं।"
+            },
+            {
+                e: "The name ‘India’ is etymologically derived from which river?",
+                h: "'इंडिया' नाम मूल रूप से किस नदी से लिया गया है?",
+                oEn: ["Ganges River", "Bhagirathi River", "Indus River", "Brahmaputra River"],
+                oHi: ["गंगा नदी", "भागीरथी नदी", "सिंधु नदी (Indus)", "ब्रह्मपुत्र नदी"],
+                a: 2,
+                sE: "The name 'India' comes from the Indus River (known in Sanskrit as Sindhu, adapted into Old Persian as Hindu and Greek as Indos).",
+                sH: "'इंडिया' शब्द सिंधु नदी के यूनानी नाम 'इंडोस' (Indos) और लातिन भाषा के 'Indus' से व्युत्पन्न हुआ है।"
+            },
+            {
+                e: "The Priest-King statue from Mohenjo-daro, a famous stone sculpture, is predominantly made of which of the following substances?",
+                h: "मोहनजोदड़ो से प्राप्त 'पुरोहित-राजा' (Priest-King) की प्रसिद्ध मूर्ति मुख्य रूप से किस पदार्थ से बनी है?",
+                oEn: ["Terracotta", "Steatite", "Bronze", "Limestone"],
+                oHi: ["टेराकोटा", "स्टीएटाइट (सेलखड़ी)", "कांस्य", "चूना पत्थर"],
+                a: 1,
+                sE: "The Priest-King figurine, decorated with an armlet and a trefoil-patterned shawl, is carved from steatite (soapstone).",
+                sH: "मोहनजोदड़ो से प्राप्त त्रिफूलिया शॉल ओढ़े दाढ़ी वाले पुरोहित राजा की मूर्ति 'स्टीएटाइट' (सेलखड़ी / खड़िया पत्थर) से तराशी गई है।"
+            },
+            {
+                e: "Which of the following substances constitutes the primary material of the 'Mother Goddess' sculptures originating from the Indus Valley Civilisation?",
+                h: "सिंधु घाटी सभ्यता की 'मातृ देवी' (Mother Goddess) की मूर्तियों की प्राथमिक सामग्री कौन-सी है?",
+                oEn: ["Bronze", "Limestone", "Terracotta", "Steatite"],
+                oHi: ["कांस्य", "चूना पत्थर", "टेराकोटा (पकी मिट्टी)", "सेलखड़ी"],
+                a: 2,
+                sE: "The iconic Mother Goddess figurines with fan-shaped headdresses and heavy ornaments were modeled out of terracotta (baked clay).",
+                sH: "सिंधु घाटी सभ्यता में मातृदेवी की अधिकांश मूर्तियां 'टेराकोटा' (पकी हुई लाल मिट्टी) से हस्तनिर्मित हैं।"
+            },
+            {
+                e: "The famous Male Torso from Harappa, remarkable for its naturalistic pose, is made of ___________.",
+                h: "हड़प्पा से प्राप्त प्रसिद्ध पुरुष धड़, जो अपनी स्वाभाविक मुद्रा के लिए उल्लेखनीय है, ___________ से बना है।",
+                oEn: ["Steatite", "Red sandstone", "Bronze", "Terracotta"],
+                oHi: ["सेलखड़ी", "लाल बलुआ पत्थर (Red sandstone)", "कांस्य", "टेराकोटा"],
+                a: 1,
+                sE: "The miniature Male Torso figurine from Harappa is carved out of red sandstone/limestone with sockets in the neck and shoulders for attachment of head and limbs.",
+                sH: "हड़प्पा से मिला नटराज जैसी मुद्रा वाला पुरुष धड़ लाल बलुआ पत्थर (Red sandstone) से तराशा गया है।"
+            },
+            {
+                e: "During the Indus Valley Civilisation, the presence of jewellery made from precious metals and semi-precious stones even in smaller settlements supports the argument that ____.",
+                h: "सिंधु घाटी सभ्यता के दौरान, छोटे नगरों में भी कीमती धातुओं और पत्थरों के आभूषणों की उपलब्धता किस बात का समर्थन करती है?",
+                oEn: [
+                    "the civilisation was ruled by autocratic priest-kings",
+                    "there was an equal access to material goods",
+                    "there was strong social stratification",
+                    "only the elite had access to luxury items"
+                ],
+                oHi: [
+                    "सभ्यता पर निरंकुश पुजारी-राजाओं का शासन था",
+                    "भौतिक वस्तुओं तक समान पहुंच थी",
+                    "मजबूत सामाजिक स्तरीकरण (Social stratification) था",
+                    "केवल अभिजात वर्ग की ही विलासिता की वस्तुओं तक पहुंच थी"
+                ],
+                a: 2,
+                sE: "Variations in raw material value and ownership across different settlements and household sizes reflect a differentiated and stratified society.",
+                sH: "आभूषणों की धातुओं और गुणवत्ता में अंतर समाज में स्पष्ट आर्थिक और सामाजिक स्तरीकरण (Social stratification) की उपस्थिति दर्शाता है।"
+            },
+            {
+                e: "Which of the following is cited as evidence for a highly centralised administration in the Indus-Sarasvati civilisation?",
+                h: "सिंधु-सरस्वती सभ्यता में एक अत्यधिक केंद्रीकृत प्रशासन के प्रमाण के रूप में किसे उद्धृत किया जाता है?",
+                oEn: [
+                    "Elaborate royal tombs",
+                    "Absence of seals and standard script",
+                    "Standardised weights and measures",
+                    "Monumental palaces and temples"
+                ],
+                oHi: [
+                    "विस्तृत शाही मकबरे",
+                    "मुहरों और मानक लिपि का अभाव",
+                    "मानकीकृत बाट और माप (Standardised weights)",
+                    "स्मारक महल और मंदिर"
+                ],
+                a: 2,
+                sE: "The remarkable uniformity in brick dimensions (1:2:4) and the standardized binary and decimal weights across thousands of miles point to a centralized authority or administrative coordination.",
+                sH: "पूरे हड़प्पा क्षेत्र में एक समान 16 के अनुपात वाले मानकीकृत बाट, माप और ईंटों का निश्चित अनुपात एक सुदृढ़ केंद्रीकृत प्रशासनिक व्यवस्था को सिद्ध करता है।"
+            },
+            {
+                e: "Which of the following is a well-known bronze artefact from the Indus Valley Civilisation, dating to around 2500 BCE?",
+                h: "निम्नलिखित में से कौन-सी सिंधु घाटी सभ्यता की एक प्रसिद्ध कांस्य कलाकृति है, जो लगभग 2500 ईसा पूर्व की है?",
+                oEn: [
+                    "Stone seal of unicorn from Lothal",
+                    "Priest‑King statue from Mohenjo‑daro",
+                    "Painted pottery vase from Dholavira",
+                    "Dancing Girl statue from Mohenjo‑daro"
+                ],
+                oHi: [
+                    "लोथल से एक-श्रृंगी की पत्थर की मुहर",
+                    "मोहनजोदड़ो से पुरोहित-राजा की मूर्ति",
+                    "धोलावीरा से चित्रित मिट्टी का फूलदान",
+                    "मोहनजोदड़ो से नृत्य करती लड़की (Dancing Girl) की मूर्ति"
+                ],
+                a: 3,
+                sE: "The bronze 'Dancing Girl' found at Mohenjo-daro by Ernest Mackay in 1926 is one of the most famous masterpieces of prehistoric metal casting.",
+                sH: "मोहनजोदड़ो से प्राप्त कांस्य नर्तकी (Dancing Girl) की मूर्ति सिंधु घाटी सभ्यता की विश्व प्रसिद्ध कांस्य कलाकृति है।"
+            },
+            {
+                e: "Crafted using the lost-wax technique in Mohenjo-daro, the prehistoric Dancing Girl figurine is primarily made of which material?",
+                h: "मोहनजोदड़ो में लुप्त-मोम तकनीक से बनाई गई प्रागैतिहासिक नर्तकी की मूर्ति मुख्य रूप से किस सामग्री से बनी है?",
+                oEn: ["Stone", "Copper", "Terracotta", "Bronze"],
+                oHi: ["पत्थर", "तांबा", "टेराकोटा", "कांस्य (Bronze)"],
+                a: 3,
+                sE: "The Dancing Girl statue is cast in bronze (an alloy of copper and tin).",
+                sH: "नर्तकी की मूर्ति शुद्ध रूप से कांस्य (Bronze) धातु से लॉस्ट-वैक्स पद्धति द्वारा निर्मित है।"
+            },
+            {
+                e: "The Harappans were first in Eurasia to cultivate which of the following commercial crops?",
+                h: "हड़प्पावासी यूरेशिया में निम्नलिखित में से कौन-सी फसल उगाने वाले पहले व्यक्ति थे?",
+                oEn: ["Indigo", "Mustard Seeds", "Potato", "Cotton"],
+                oHi: ["नील", "सरसों के बीज", "आलू", "कपास (Cotton)"],
+                a: 3,
+                sE: "The Harappans were the earliest known people to produce cotton in the ancient Old World; the Greeks called cotton 'Sindon' after the river Sindh (Indus).",
+                sH: "हड़प्पावासी पूरे यूरेशिया में सर्वप्रथम कपास (Cotton) उगाने वाले लोग थे, जिसे यूनानियों ने 'सिंडन' कहा।"
+            },
+            {
+                e: "Which of the following statements is INCORRECT about the Harappans?",
+                h: "हड़प्पावासियों के बारे में निम्नलिखित में से क्या गलत है?",
+                oEn: [
+                    "The most favoured ornaments were beads of carnelian.",
+                    "They exported ornaments, timber, and objects of daily use.",
+                    "The Harappans were engaged in active maritime and overland trade.",
+                    "The Harappans used only gold to make tools, pots and pans."
+                ],
+                oHi: [
+                    "सबसे पसंदीदा आभूषण कार्नेलियन के मनके थे।",
+                    "वे आभूषण, इमारती लकड़ी, दैनिक उपयोग की कुछ वस्तुओं का निर्यात करते थे।",
+                    "हड़प्पावासी सक्रिय व्यापार में लगे हुए थे।",
+                    "हड़प्पावासी उपकरण, बर्तन और कड़ाही बनाने के लिए केवल सोने का उपयोग करते थे।"
+                ],
+                a: 3,
+                sE: "Statement D is false. Harappans used bronze, copper, stone, and terracotta for everyday tools and vessels; gold and silver were reserved strictly for jewellery and precious luxury objects.",
+                sH: "कथन 4 गलत है क्योंकि औजार, बर्तन और कड़ाही तांबे, कांस्य और मिट्टी से बनते थे, केवल सोने से नहीं।"
+            },
+            {
+                e: "Most standard Harappan seals were made of _______, a kind of soft stone that was square in shape with a 2 × 2 dimension.",
+                h: "हड़प्पा की अधिकांश मानक मुहरें _______ से बनी थीं, जो एक प्रकार का नरम पत्थर था जो 2 × 2 आयाम के साथ चौकोर आकार का था।",
+                oEn: ["Steatite", "Golden rutile", "Selenite", "Rhodonite"],
+                oHi: ["सेलखड़ी (Steatite)", "सुनहरा रूटाइल", "सेलेनाइट", "रोडोनाइट"],
+                a: 0,
+                sE: "The vast majority of Indus seals were square tablets carved from steatite (soapstone) and then coated with an alkali and fired to white hardness.",
+                sH: "अधिकांश मानक हड़प्पा मुहरें चौकोर आकार की थीं और सेलखड़ी (Steatite) नामक कोमल पत्थर से बनाई जाती थीं।"
+            },
+            {
+                e: "During the Indus Valley Period, from where were marine shells primarily procured for specialized craft production?",
+                h: "सिंधु घाटी काल के दौरान, शिल्प उत्पादन के लिए सीपियाँ (shells) मुख्य रूप से कहाँ से प्राप्त की जाती थीं?",
+                oEn: ["Shortughai", "Ropar", "Jaipur", "Nageshwar"],
+                oHi: ["शोर्टुघई", "रोपड़", "जयपुर", "नागेश्वर"],
+                a: 3,
+                sE: "Coastal settlements such as Nageshwar and Balakot were established close to marine resources specifically for producing bangles, ladles, and inlays made of shell.",
+                sH: "गुजरात के नागेश्वर और बालाकोट तटीय बस्तियां थीं, जो विशेष रूप से शंख और सीपियों से बने सामानों के निर्माण केंद्र थे।"
+            },
+            {
+                e: "Which of the following sites of Indus Valley Civilization is located in Punjab (India)?",
+                h: "सिंधु घाटी सभ्यता का निम्नलिखित में से कौन सा स्थल पंजाब (भारत) में स्थित है?",
+                oEn: ["Banawali", "Balu", "Kot Diji", "Ropar"],
+                oHi: ["बनावली", "बालू", "कोट दीजी", "रोपड़ (रूपनगर)"],
+                a: 3,
+                sE: "Ropar (now Rupnagar) is situated on the Sutlej river in Punjab (India), while Banawali and Balu are in Haryana, and Kot Diji is in Sindh (Pakistan).",
+                sH: "रोपड़ (रूपनगर) भारत के पंजाब राज्य में सतलुज नदी के किनारे स्थित है।"
+            },
+            {
+                e: "The Harappan Civilization flourished around 2500 BC in what we call today ________.",
+                h: "हड़प्पा सभ्यता लगभग 2500 ईसा पूर्व में फली-फूली थी जिसे आज हम ________ कहते हैं।",
+                oEn: [
+                    "Pakistan and Afghanistan",
+                    "Western India and Pakistan",
+                    "Afghanistan and Western India",
+                    "India and China"
+                ],
+                oHi: [
+                    "पाकिस्तान और अफगानिस्तान",
+                    "पश्चिमी भारत और पाकिस्तान (Western India and Pakistan)",
+                    "अफगानिस्तान और पश्चिमी भारत",
+                    "भारत और चीन"
+                ],
+                a: 1,
+                sE: "The core territory of the Mature Harappan Civilization encompasses Western India (Gujarat, Rajasthan, Haryana, Punjab) and Pakistan (Sindh, Punjab, Balochistan).",
+                sH: "हड़प्पा सभ्यता का मुख्य विस्तार वर्तमान पश्चिमी भारत और पाकिस्तान के भौगोलिक क्षेत्रों में फैला हुआ था।"
+            },
+            {
+                e: "Which ancient civilization flourished in the Thar Desert/Sarasvati area about 5000 years ago?",
+                h: "लगभग 5000 वर्ष पूर्व थार मरुस्थल/घग्गर क्षेत्र में कौन सी प्राचीन सभ्यता फली-फूली थी?",
+                oEn: ["Babylonian Civilisation", "Indus Valley Civilisation", "Greek Civilisation", "Egyptian Civilisation"],
+                oHi: ["बेबीलोनियन सभ्यता", "सिंधु घाटी सभ्यता (Indus Valley)", "ग्रीक सभ्यता", "मिस्र की सभ्यता"],
+                a: 1,
+                sE: "The Indus Valley (Indus-Sarasvati) civilization thrived across northwest India and the borders of the Thar desert (e.g., Kalibangan).",
+                sH: "थार मरुस्थल और घग्गर-हाकरा नदी घाटी के किनारे लगभग 5000 वर्ष पूर्व सिंधु घाटी सभ्यता फली-फूली थी।"
+            },
+            {
+                e: "Which of the following materials was NOT used for making ornaments during the Harappan civilisation?",
+                h: "हड़प्पा सभ्यता के दौरान आभूषण बनाने के लिए निम्नलिखित में से किस सामग्री का उपयोग नहीं किया गया था?",
+                oEn: ["Ivory", "Carnelian", "Steatite", "Diamond"],
+                oHi: ["हाथी दांत", "कार्नेलियन", "स्टीएटाइट", "हीरा (Diamond)"],
+                a: 3,
+                sE: "Harappans used gold, silver, copper, bronze, carnelian, lapis lazuli, turquoise, ivory, and faience for ornaments; diamond cutting was unknown in this period.",
+                sH: "हड़प्पावासी हाथी दांत, कार्नेलियन और सेलखड़ी के आभूषण बनाते थे, परंतु हीरे (Diamond) का कोई पुरातात्विक साक्ष्य नहीं मिला है।"
+            },
+            {
+                e: "What was the main purpose of the citadel in Harappan cities?",
+                h: "हड़प्पा शहरों में दुर्ग (Citadel) का मुख्य उद्देश्य क्या था?",
+                oEn: [
+                    "To function as a marketplace",
+                    "To function as a residential area for commoners",
+                    "To organise administrative and public functions",
+                    "To organise religious animal sacrifices"
+                ],
+                oHi: [
+                    "एक बाजार के रूप में कार्य करना",
+                    "आम लोगों के लिए एक आवासीय क्षेत्र",
+                    "प्रशासनिक और सार्वजनिक कार्यों को व्यवस्थित करना",
+                    "धार्मिक पशु बलि का आयोजन करना"
+                ],
+                a: 2,
+                sE: "The Citadel was reserved for special public facilities, granaries, assembly halls, and the administrative/ruling elite.",
+                sH: "हड़प्पा नगरों का पश्चिमी दुर्ग प्रशासनिक, सार्वजनिक सभाओं और अन्नागार जैसे विशिष्ट कार्यों के लिए उपयोग किया जाता था।"
+            },
+            {
+                e: "Which animal was most frequently and prominently depicted on Harappan seals?",
+                h: "हड़प्पा मुहरों पर सामान्यतः किस काल्पनिक/वास्तविक पशु का सबसे अधिक चित्रण किया गया था?",
+                oEn: ["Horse", "Peacock", "Unicorn", "Sparrow"],
+                oHi: ["घोड़ा", "मोर", "यूनिकॉर्न (एक-श्रृंगी पशु)", "गौरैया"],
+                a: 2,
+                sE: "The mythical single-horned humpless beast ('unicorn') is by far the most ubiquitous animal motif appearing on Indus seals.",
+                sH: "सिंधु घाटी की मुहरों पर सर्वाधिक संख्या में एक-श्रृंगी (Unicorn) पशु का अंकन मिलता है।"
+            },
+            {
+                e: "A large number of terracotta toys were found at which site of the Indus Valley Civilization?",
+                h: "सिंधु घाटी सभ्यता के किस स्थल पर बड़ी संख्या में मिट्टी के खिलौने (खिलौना गाड़ियां, सीटियां) मिले थे?",
+                oEn: ["Rakhigarhi", "Kalibangan", "Lothal", "Mohenjodaro"],
+                oHi: ["राखीगढ़ी", "कालीबंगा", "लोथल", "मोहनजोदड़ो"],
+                a: 3,
+                sE: "Mohenjo-daro yielded an immense collection of terracotta toys, animal carts, whistles, and movable figurines.",
+                sH: "मोहनजोदड़ो से बड़ी संख्या में पकी मिट्टी के खिलौने, बैलगाड़ियां और जानवरों के मॉडल प्राप्त हुए हैं।"
+            },
+            {
+                e: "Which Harappan site shows conclusive evidence of ploughed agricultural fields?",
+                h: "किस हड़प्पा स्थल पर जुते हुए खेतों के स्पष्ट साक्ष्य मिलते हैं?",
+                oEn: ["Dholavira", "Kalibangan", "Lothal", "Mohenjo-daro"],
+                oHi: ["धौलावीरा", "कालीबंगा (Kalibangan)", "लोथल", "मोहनजोदड़ो"],
+                a: 1,
+                sE: "Kalibangan in Rajasthan revealed the earliest furrowed agricultural field showing intersecting furrows for two crops simultaneously.",
+                sH: "राजस्थान के कालीबंगा से प्राक्-हड़प्पा स्तर पर जुते हुए खेत (Ploughed field) के साक्ष्य मिले हैं।"
+            },
+            {
+                e: "Who wrote the book 'Early Indus Civilisation' in 1948?",
+                h: "1948 में 'अर्ली इंडस सिविलाइजेशन' (Early Indus Civilisation) पुस्तक किसने लिखी थी?",
+                oEn: ["G.F. Dales", "John Marshall", "Ernest Mackay", "R.E.M. Wheeler"],
+                oHi: ["जी.एफ. डेल्स", "जॉन मार्शल", "अर्नेस्ट मैके (Ernest Mackay)", "आर.ई.एम. व्हीलर"],
+                a: 2,
+                sE: "'Early Indus Civilisation' (published in 1948) was written by British archaeologist Ernest J. H. Mackay.",
+                sH: "'अर्ली इंडस सिविलाइजेशन' पुस्तक के लेखक विख्यात पुरातत्वविद् अर्नेस्ट मैके (Ernest Mackay) हैं।"
+            },
+            {
+                e: "The Great Bath found at Mohenjo-daro was shaped as a large:",
+                h: "मोहनजोदड़ो में खोजा गया विशाल स्नानागार एक वृहत ______ था।",
+                oEn: ["Triangular tank", "Cylindrical tank", "Rectangular tank", "Circular tank"],
+                oHi: ["त्रिकोणीय टैंक", "बेलनाकार टैंक", "आयताकार टैंक (Rectangular tank)", "वृत्ताकार टैंक"],
+                a: 2,
+                sE: "The Great Bath is a large rectangular pool measuring approximately 11.88 × 7.01 metres with a depth of 2.43 metres.",
+                sH: "विशाल स्नानागार एक आयताकार (Rectangular) टैंक था, जिसमें उतरने के लिए उत्तर और दक्षिण दिशा में सीढ़ियाँ बनी थीं।"
+            },
+            {
+                e: "The most common Harappan seals were _________ in shape.",
+                h: "सबसे आम हड़प्पा मुहरें _________ आकार की थीं।",
+                oEn: ["Square", "Rectangular", "Circular", "Hexagonal"],
+                oHi: ["वर्गाकार (Square)", "आयताकार", "गोलाकार", "षटकोणीय"],
+                a: 0,
+                sE: "Standard mature Harappan seals were predominantly square (typically 2x2 cm) with a perforated boss on the reverse for stringing.",
+                sH: "हड़प्पा काल की अधिकांश मुहरें वर्गाकार (Square) रूप में बनाई गई थीं।"
+            },
+            {
+                e: "Which town of the Indus Valley Civilisation literally means 'mound of the dead' in Sindhi?",
+                h: "सिंधु घाटी सभ्यता का कौन सा शहर सिंधी भाषा में शाब्दिक रूप से 'मृतकों का टीला' अर्थ रखता है?",
+                oEn: ["Balakot", "Mesopotamia", "Harappa", "Mohenjo-daro"],
+                oHi: ["बालाकोट", "मेसोपोटामिया", "हड़प्पा", "मोहनजोदड़ो"],
+                a: 3,
+                sE: "In the Sindhi language, 'Mohenjo-daro' translates literally to the 'Mound of the Dead'.",
+                sH: "सिंधी भाषा में 'मोहनजोदड़ो' का शाब्दिक अर्थ 'मृतकों का टीला' (Mound of the Dead) होता है।"
+            },
+            {
+                e: "Which gemstone was extensively used to make reddish luxury beads in the Harappan civilization?",
+                h: "हड़प्पा सभ्यता में लाल रंग के मनके (beads) बनाने के लिए किस सामग्री का उपयोग किया जाता था?",
+                oEn: ["Carnelian stone", "Limestone", "Granite", "Fluorite"],
+                oHi: ["कार्नेलियन पत्थर (Carnelian)", "चूना पत्थर", "ग्रेनाइट", "फ्लोराइट"],
+                a: 0,
+                sE: "Carnelian, a reddish silicate mineral procured from Gujarat (Ratanpur), was drilled and polished into exquisite beads.",
+                sH: "हड़प्पा सभ्यता में सुंदर लाल रंग के मनके बनाने के लिए कार्नेलियन (Carnelian) पत्थर का मुख्य रूप से प्रयोग किया जाता था।"
+            },
+            {
+                e: "In which year did a joint team of German and Italian archaeologists start surface exploration at Mohenjodaro?",
+                h: "किस वर्ष में जर्मनी और इटली के पुरातत्वविदों के एक दल ने मोहनजोदड़ो में सतह अन्वेषण शुरू किया था?",
+                oEn: ["1970", "1990", "1955", "1980"],
+                oHi: ["1970", "1990", "1955", "1980"],
+                a: 3,
+                sE: "In 1980, the Aachen University (Germany) and ISMEO (Italy) launched a joint surface exploration project at Mohenjo-daro.",
+                sH: "1980 में जर्मनी और इटली के पुरातत्वविदों की संयुक्त टीम ने मोहनजोदड़ो में सतह अन्वेषण (Surface Exploration) प्रारंभ किया था।"
+            },
+            {
+                e: "Which small Harappan city was almost exclusively devoted to craft production such as bead making, shell cutting, seal making, and weight making?",
+                h: "हड़प्पा सभ्यता का कौन सा शहर विशेष रूप से मनका निर्माण, शंख कटाई, धातु कार्य, मुहर निर्माण और बाट निर्माण सहित शिल्प उत्पादन के लिए समर्पित था?",
+                oEn: ["Harappa", "Nageshwar", "Mohenjo Daro", "Chanhudaro"],
+                oHi: ["हड़प्पा", "नागेश्वर", "मोहनजोदड़ो", "चन्हुदड़ो (Chanhudaro)"],
+                a: 3,
+                sE: "Chanhudaro (a small 7-hectare settlement in Sindh) was almost entirely devoted to specialized craft production.",
+                sH: "चन्हुदड़ो एक छोटा औद्योगिक नगर था, जो पूरी तरह से मनके, मुहर, सीप और बाट बनाने के कारखानों के लिए समर्पित था।"
+            },
+            {
+                e: "The first site discovered in the Indus Valley Civilisation was:",
+                h: "सिंधु घाटी सभ्यता में खोजा गया पहला स्थल कौन-सा था?",
+                oEn: ["Lothal", "Mohenjo-Daro", "Kalibangan", "Harappa"],
+                oHi: ["लोथल", "मोहनजोदड़ो", "कालीबंगा", "हड़प्पा"],
+                a: 3,
+                sE: "Harappa was the first site discovered in 1921, giving the entire civilization its alternative name, the Harappan Civilization.",
+                sH: "1921 में सबसे पहले खोजा गया स्थल 'हड़प्पा' था, जिसके कारण इस पूरी सभ्यता को हड़प्पा सभ्यता भी कहा जाता है।"
+            },
+            {
+                e: "Which animal was frequently engraved on the seals of the Harappan Civilisation?",
+                h: "निम्नलिखित में से कौन सा पशु हड़प्पा सभ्यता की मुहरों पर अक्सर देखा जाता था?",
+                oEn: ["Fox", "Bull (Zebu / Humped Bull)", "Lion", "Camel"],
+                oHi: ["लोमड़ी", "बैल (Humped Bull / कुबड़ वाला सांड़)", "शेर", "ऊंट"],
+                a: 1,
+                sE: "The humped bull (zebu) and unicorn are among the most frequently portrayed real and mythic animals on Harappan seals. Lions were not depicted.",
+                sH: "हड़प्पा मुहरों पर कूबड़ वाले बैल (Bull / सांड़) का अत्यंत सजीव और बहुतायत में अंकन मिलता है।"
+            },
+            {
+                e: "Which of the following sites is NOT a part of the Indus Valley Civilization?",
+                h: "निम्नलिखित में से कौन सा स्थल सिंधु घाटी सभ्यता का हिस्सा नहीं है?",
+                oEn: ["Harappa", "Uruk", "Mohenjo Daro", "Lothal"],
+                oHi: ["हड़प्पा", "उरुक (Uruk)", "मोहनजोदड़ो", "लोथल"],
+                a: 1,
+                sE: "Uruk was one of the earliest major city-states of the ancient Sumerian civilization in Mesopotamia (modern Iraq), not Indus Valley.",
+                sH: "उरुक (Uruk) मेसोपोटामिया (सुमेरियन सभ्यता, इराक) का प्राचीन शहर है, सिंधु घाटी सभ्यता का नहीं।"
+            },
+            {
+                e: "What is the name of the book written by Ernest Mackay detailing his archaeological excavations at Mohenjo-daro?",
+                h: "अर्नेस्ट मैके द्वारा मोहनजोदड़ो के उत्खनन के बारे में लिखी गई विस्तृत पुस्तक का क्या नाम है?",
+                oEn: [
+                    "Early Indus Civilisation",
+                    "Deeper Excavations at Mohenjo-daro",
+                    "Archaeology of Mohenjo-daro",
+                    "Further Excavations at Mohenjo-daro"
+                ],
+                oHi: [
+                    "अर्ली इंडस सिविलाइजेशन",
+                    "डीपर एक्सकवेशन एट मोहन जोदड़ो",
+                    "आर्कियोलॉजी ऑफ़ मोहन जोदड़ो",
+                    "फर्दर एक्सकवेशन्स एट मोहनजोदड़ो (Further Excavations at Mohenjo-daro)"
+                ],
+                a: 3,
+                sE: "Ernest Mackay documented his 1927–1931 excavations in his seminal two-volume report titled 'Further Excavations at Mohenjo-daro' (1938).",
+                sH: "अर्नेस्ट मैके ने 1938 में 'Further Excavations at Mohenjo-daro' शीर्षक से अपनी महत्वपूर्ण रिपोर्ट प्रकाशित की थी।"
+            },
+            {
+                e: "Dholavira, an archaeological site, is associated with which period?",
+                h: "धोलावीरा, एक पुरातात्विक स्थल, किस कालावधि से संबंधित है?",
+                oEn: ["Magadha period", "Gupta period", "Chalukya period", "Indus Valley Civilization"],
+                oHi: ["मगध काल", "गुप्त काल", "चालुक्य काल", "सिंधु घाटी सभ्यता"],
+                a: 3,
+                sE: "Dholavira is one of the five largest cities of the Indus Valley (Harappan) Civilization.",
+                sH: "धोलावीरा सिंधु घाटी सभ्यता (हड़प्पा काल) का एक प्रमुख और भव्य नगर है।"
+            },
+            {
+                e: "Harappan people did not worship which one of the following deities?",
+                h: "हड़प्पा के लोग निम्नलिखित में से किस देवता की पूजा नहीं करते थे?",
+                oEn: ["Shiva (Pashupati)", "Vishnu", "Mother Goddess", "Trees and Animals"],
+                oHi: ["शिव (पशुपति)", "विष्णु (Vishnu)", "मातृदेवी", "पेड़-पौधे व पशु"],
+                a: 1,
+                sE: "Worship of Vishnu (and Avatar concepts) developed in later Vedic and Puranic Hinduism; no evidence of Vishnu worship exists in Harappan archaeological strata.",
+                sH: "हड़प्पा सभ्यता में पशुपति शिव, मातृदेवी, पीपल और पशुओं की पूजा के साक्ष्य मिलते हैं, परंतु 'विष्णु' की पूजा का कोई साक्ष्य नहीं मिलता।"
+            },
+            {
+                e: "The most significant architectural and civil engineering feature of the Indus Valley civilization was:",
+                h: "सिंधु घाटी सभ्यता की सबसे महत्वपूर्ण विशेषता थी:",
+                oEn: ["Barter system", "Local transport system", "Buildings made of baked brick and urban planning", "Administrative system"],
+                oHi: ["वस्तु विनिमय प्रणाली", "स्थानीय परिवहन प्रणाली", "पकी ईंटों से बनी इमारतें व नगर नियोजन", "प्रशासनिक प्रणाली"],
+                a: 2,
+                sE: "The remarkable and widespread use of standardized burnt bricks for fortified walls, houses, and drains remains the paramount hallmark of Harappan engineering.",
+                sH: "पकी हुई ईंटों का व्यवस्थित निर्माण (Buildings made of baked bricks) और उन्नत नगर नियोजन सिंधु घाटी सभ्यता की सबसे प्रमुख विशेषता थी।"
+            }
+        ];
+
+        const state = {
+            current: 0,
+            answers: new Array(QUESTIONS.length).fill(null),
+            locked: new Array(QUESTIONS.length).fill(false),
+            mode: 'test',
+            lang: 'en',
+            startTime: null,
+            timerInterval: null,
+            elapsed: 0
+        };
+
+        function $(id) { return document.getElementById(id); }
+
+        function toast(msg) {
+            const t = $('toast');
+            $('toastText').textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2000);
+        }
+
+        function formatTime(s) {
+            const m = Math.floor(s / 60);
+            return String(m).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0');
+        }
+
+        function startApp(mode) {
+            state.mode = mode;
+            $('startScreen').classList.add('hidden');
+            $('quizApp').classList.remove('hidden');
+            state.startTime = Date.now();
+            state.timerInterval = setInterval(() => {
+                state.elapsed = Math.floor((Date.now() - state.startTime) / 1000);
+                $('timerText').textContent = formatTime(state.elapsed);
+            }, 1000);
+            renderQuestion();
+            buildPalette();
+        }
+
+        function toggleLang() {
+            state.lang = state.lang === 'en' ? 'hi' : 'en';
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            const i = state.current;
+            const q = QUESTIONS[i];
+            const isQuiz = state.mode === 'quiz';
+            const locked = state.locked[i];
+            const userAns = state.answers[i];
+            const qTxt = state.lang === 'en' ? q.e : q.h;
+            const opts = state.lang === 'en' ? q.oEn : q.oHi;
+
+            let optsHtml = '';
+            opts.forEach((opt, idx) => {
+                let cls = '', tag = '';
+                if (isQuiz && locked) {
+                    if (idx === q.a) {
+                        cls = 'correct';
+                        tag = '<span class="opt-tag">Correct</span>';
+                    }
+                    if (userAns === idx && idx !== q.a) {
+                        cls = 'wrong';
+                        tag = '<span class="opt-tag">Your Ans</span>';
+                    }
+                } else if (userAns === idx) {
+                    cls = 'selected';
+                }
+                optsHtml += `
+                    <div class="opt ${cls} ${locked ? 'locked' : ''}" onclick="selectOption(${idx})">
+                        <div class="opt-letter">${String.fromCharCode(65 + idx)}</div>
+                        <div class="opt-text">${opt}</div>
+                        ${tag}
+                    </div>
+                `;
+            });
+
+            const solTxt = state.lang === 'en' ? q.sE : q.sH;
+            let solHtml = (isQuiz && locked) ? `
+                <div class="sol-box">
+                    <div class="sol-head"><i class="fas fa-lightbulb"></i> Explanation</div>
+                    <div>${solTxt}</div>
+                </div>
+            ` : '';
+
+            $('quizMain').innerHTML = `
+                <div class="q-card">
+                    <div class="q-top">
+                        <div class="q-num-badge">Question ${i + 1} of ${QUESTIONS.length}</div>
+                        <button class="lang-btn" onclick="toggleLang()">
+                            <i class="fas fa-language"></i> ${state.lang === 'en' ? 'हिन्दी' : 'English'}
+                        </button>
+                    </div>
+                    <div class="q-text">${qTxt}</div>
+                    <div class="opts">${optsHtml}</div>
+                    ${solHtml}
+                </div>
+            `;
+
+            $('prevBtn').disabled = i === 0;
+            $('nextLabel').textContent = i === QUESTIONS.length - 1 ? 'Finish' : 'Next';
+            updatePaletteGrid();
+        }
+
+        function selectOption(idx) {
+            if (state.mode === 'quiz' && state.locked[state.current]) return;
+            state.answers[state.current] = idx;
+            if (state.mode === 'quiz') {
+                state.locked[state.current] = true;
+                if (idx === QUESTIONS[state.current].a) {
+                    toast('Correct! 🎉');
+                } else {
+                    toast('Incorrect');
+                }
+            }
+            renderQuestion();
+        }
+
+        function prevQuestion() {
+            if (state.current > 0) {
+                state.current--;
+                renderQuestion();
+            }
+        }
+
+        function nextQuestion() {
+            if (state.current < QUESTIONS.length - 1) {
+                state.current++;
+                renderQuestion();
+            } else {
+                openSubmitModal();
+            }
+        }
+
+        function buildPalette() {
+            const grid = $('paletteGrid');
+            grid.innerHTML = '';
+            QUESTIONS.forEach((_, i) => {
+                const btn = document.createElement('button');
+                btn.className = 'pal-btn';
+                btn.id = 'pal-' + i;
+                btn.textContent = i + 1;
+                btn.onclick = () => {
+                    state.current = i;
+                    closePalette();
+                    renderQuestion();
+                };
+                grid.appendChild(btn);
+            });
+            updatePaletteGrid();
+        }
+
+        function updatePaletteGrid() {
+            QUESTIONS.forEach((_, i) => {
+                const btn = $('pal-' + i);
+                if (!btn) return;
+                btn.className = 'pal-btn';
+                if (i === state.current) btn.classList.add('current');
+                if (state.answers[i] !== null) btn.classList.add('answered');
+            });
+        }
+
+        function openPalette() {
+            $('paletteDrawer').classList.add('open');$('paletteOverlay').classList.add('open');
+        }
+
+        function closePalette() {
+            $('paletteDrawer').classList.remove('open');$('paletteOverlay').classList.remove('open');
+        }
+
+        function openSubmitModal() {
+            const ans = state.answers.filter(a => a !== null).length;
+            $('modalAttempted').textContent = ans;
+            $('modalUnattempted').textContent = QUESTIONS.length - ans;
+            $('submitModal').classList.add('open');
+        }
+
+        function closeSubmitModal() {
+            $('submitModal').classList.remove('open');
+        }
+
+        function confirmSubmit() {
+            closeSubmitModal();
+            if (state.timerInterval) clearInterval(state.timerInterval);
+            let correct = 0, wrong = 0;
+            state.answers.forEach((ans, i) => {
+                if (ans !== null) {
+                    if (ans === QUESTIONS[i].a) correct++;
+                    else wrong++;
+                }
+            });
+            $('resultsInner').innerHTML = `
+                <h2>Test Completed!</h2>
+                <p style="color:var(--text-muted);margin:8px 0;">Total Time: ${formatTime(state.elapsed)}</p>
+                <div class="res-score-card">
+                    <div class="res-score-val">${correct} / ${QUESTIONS.length}</div>
+                    <div>Score</div>
+                </div>
+                <div class="res-grid">
+                    <div class="res-item"><div class="res-item-val" style="color:var(--green)">${correct}</div><div>Correct</div></div>
+                    <div class="res-item"><div class="res-item-val" style="color:var(--red)">${wrong}</div><div>Wrong</div></div>
+                </div>
+                <button class="modal-btn confirm" onclick="location.reload()">Re-attempt</button>
+            `;
+            $('resultsScreen').classList.add('open');
+        }
+    </script>
+</body>
+</html>
